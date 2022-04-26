@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ABCabs123+
+      MYSQL_DATABASE: simple-todo
+      MYSQL_USER: todo-user
+      MYSQL_PASSWORD: ABCabs123+
+    ports:
+      - 3306:3306
+    volumes:
+      - dbdata:/var/lib/mysql
+  api:
+    image: simple-todo/arm64
+    command: node index.js
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    depends_on:
+      - db
+    command: sh -c "./wait-for-it.sh -t 0 db:3306 -- node index.js"
+volumes:
+  dbdata:
