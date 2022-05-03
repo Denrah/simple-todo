@@ -17,6 +17,8 @@ const db = mysql.createConnection({
 
 db.connect();
 
+db.query("CREATE TABLE IF NOT EXISTS `simple-todo`.`todo` (`id` INT NOT NULL AUTO_INCREMENT,`text` TEXT NULL,PRIMARY KEY (`id`));");
+
 app.get("/health", (req, res) => {
   const successResponse = {
     status: "ok"

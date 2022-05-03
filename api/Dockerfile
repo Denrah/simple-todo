@@ -15,7 +15,10 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY index.js .
+COPY package-lock.json .
+COPY package.json .
+COPY wait-for-it.sh .
 
 RUN ["chmod", "+x", "/usr/src/app/wait-for-it.sh"]
 
